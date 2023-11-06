@@ -67,22 +67,26 @@ public class ServerHandler {
 
     }
 
-    public void reserveVisit(Visit visit){
+    public boolean reserveVisit(Visit visit){
         try{
             ReserveVisitMessage reserveVisitMessage = new ReserveVisitMessage(visit, myId);
             this.outputStream.writeObject(reserveVisitMessage);
+            return true;
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.printf("Problems with connection\n");
+            return false;
         }
 
     }
 
-    public void cancelVisit(Visit visit){
+    public boolean cancelVisit(Visit visit){
         try{
             CancelVisitMessage reserveVisitMessage = new CancelVisitMessage(visit, myId);
             this.outputStream.writeObject(reserveVisitMessage);
+            return true;
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.printf("Problems with connection\n");
+            return false;
         }
     }
 
@@ -90,13 +94,14 @@ public class ServerHandler {
         return myId;
     }
 
-    public void closeConnectionWithServer(){
+    public boolean closeConnectionWithServer(){
         try{
-            if(inputStream != null ) inputStream.close();
-            if(outputStream != null) outputStream.close();
-            if(socket != null) socket.close();
-        }catch(Exception e){
-            e.printStackTrace();
+            inputStream.close();
+            outputStream.close();
+            socket.close();
+            return true;
+        }catch(IOException e){
+            return false;
         }
 
     }
