@@ -69,7 +69,7 @@ public class ServerHandler {
 
     public boolean reserveVisit(Visit visit){
         try{
-            ReserveVisitMessage reserveVisitMessage = new ReserveVisitMessage(visit, myId);
+            ReserveVisitMessage reserveVisitMessage = new ReserveVisitMessage(visit);
             this.outputStream.writeObject(reserveVisitMessage);
             return true;
         }catch(Exception e){
@@ -81,7 +81,7 @@ public class ServerHandler {
 
     public boolean cancelVisit(Visit visit){
         try{
-            CancelVisitMessage reserveVisitMessage = new CancelVisitMessage(visit, myId);
+            CancelVisitMessage reserveVisitMessage = new CancelVisitMessage(visit);
             this.outputStream.writeObject(reserveVisitMessage);
             return true;
         }catch(Exception e){
